@@ -1,6 +1,7 @@
 var express = require('express');
-var router = express.Router({mergeParams: true});
-var crud = require('../models/CRUD');
+var router = express.Router({ mergeParams: true });
+var crud = require('../models/CRUD')
+var db = require('../dbconnection');
 var messageError = {
     error: {
         code: '400',
@@ -8,32 +9,31 @@ var messageError = {
     }
 };
 
-router.get('/:id?', function (req, res, next) {
+router.get('/', function (req, res, next) {
+    db.query("SELECT * FROM User", function (err, rows) {
+        if (err) {
+            res.json(err);
+            console.log('referf');
+        }
+        else {
+            res.json(rows);
+            console.log(rows);
+        }
+    });
 
-    if (req.query.t === undefined) {
-        res.json(messageError);
-        return
-    }
 
-    if (req.params.id) {
-        crud.getById(req.params.id, req.query.t, function (err, rows) {
-            if (err) {
-                res.json(err);
-            }
-            else {
-                res.json(rows);
-            }
-        });
-    } else {
-        crud.get(req.query.t, function (err, rows) {
-            if (err) {
-                res.json(err);
-            }
-            else {
-                res.json(rows);
-            }
-        });
-    }
+    // if (req.params.id) {
+    //     crud.getById(req.params.id, req.query.t, 
+    // } else {
+    //     crud.get(req.query.t, function (err, rows) {
+    //         if (err) {
+    //             res.json(err);
+    //         }
+    //         else {
+    //             res.json(rows);
+    //         }
+    //     });
+    // }
 })
 
 router.post('/', function (req, res, next) {
@@ -48,7 +48,7 @@ router.post('/', function (req, res, next) {
             res.json(err);
         }
         else {
-            res.json({id: results.insertId, values: req.body});//or return count for 1 &amp;amp;amp; 0
+            res.json({ id: results.insertId, values: req.body });//or return count for 1 &amp;amp;amp; 0
         }
     });
 });
