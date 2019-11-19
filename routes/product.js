@@ -9,15 +9,41 @@ var messageError = {
     }
 };
 
-router.get('/', function (req, res, next) {
-    productModel.getAll((err, result) => {
+router.get('/type', function (req, res, next) {
+    productModel.getTypeProduct((err, result) => {
         if (err) {
             res.json(err);
         }
         else {
+            console.log(result)
             res.json(result);
         }
     })
+});
+
+router.get('/', function (req, res, next) {
+    const { keyword, type } = req.query
+    console.log(keyword, type)
+    const newKeyword = keyword ? keyword : ''
+    if (type) {
+        productModel.getByType(newKeyword, type, (err, result) => {
+            if (err) {
+                res.json(err);
+            }
+            else {
+                res.json(result);
+            }
+        })
+    } else {
+        productModel.getAll(newKeyword, (err, result) => {
+            if (err) {
+                res.json(err);
+            }
+            else {
+                res.json(result);
+            }
+        })
+    }
 });
 
 
