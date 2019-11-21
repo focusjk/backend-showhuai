@@ -41,7 +41,8 @@ router.get('/profile', function (req, res, next) {
 });
 
 router.post('/profile/edit', function (req, res, next) {
-    userModel.updateProfileByID(req.body.ID, req.body, (err, result) => {
+    const {ID, ...data} = req.body
+    userModel.updateProfileByID(ID, data, (err, result) => {
         if (err) {
             res.json(err);
         }
@@ -49,8 +50,6 @@ router.post('/profile/edit', function (req, res, next) {
             res.json({ sucess: true });
         }
     });
-});
-
-
+}); 
 
 module.exports = router;
