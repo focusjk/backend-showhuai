@@ -11,13 +11,15 @@ var messageError = {
 };
 
 router.post('/login', function (req, res, next) {
-    userModel.login(req.body, (err, result) => {
+    const { id } = req.body
+    console.log(id)
+
+    userModel.login(id, (err, result) => {
         if (err) {
             res.json(err);
         }
         else {
             if (result.length > 0) {
-                const { Password, ...data } = result[0]
                 res.json({ success: true, ...data });
             } else {
                 res.json({ success: false })

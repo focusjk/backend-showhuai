@@ -16,7 +16,8 @@
     "express": "~4.13.1",
     "loopback-connector-mysql": "^5.2.0",
     "moment": "^2.19.2",
-    "mysql": "^2.14.1"
+    "mysql": "^2.14.1",
+    "nvm": "0.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.12.0"

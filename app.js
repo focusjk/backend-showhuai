@@ -8,6 +8,7 @@ var up = require('./routes/up');
 var user = require('./routes/user');
 var product = require('./routes/product');
 var crud = require('./routes/crud');
+var send = require('./routes/sendinground');
 
 var app = express();
 
@@ -20,5 +21,6 @@ app.use('/up', up);
 app.use('/user', user);
 app.use('/product', product);
 app.use('/api/v1/crud', crud);
+app.use('/sendinground', send);
 
 module.exports = app;
