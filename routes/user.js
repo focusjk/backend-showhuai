@@ -26,5 +26,29 @@ router.post('/login', function (req, res, next) {
     })
 });
 
+router.get('/profile', function (req, res, next){
+    userModel.getByID(req.body, (err, result)=> {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            console.log(result)
+            res.json(result);
+        }
+    })
+});
+
+router.post('/profile/edit', function (req, res, next){
+    userModel.updateProfileByID(req.body.ID, req.body, (err, result) => {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json({sucess: true});
+        }
+    });
+});
+
+
 
 module.exports = router;
