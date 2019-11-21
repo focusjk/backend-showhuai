@@ -2,7 +2,7 @@ var db = require('../dbconnection'); //reference of dbconnection.js
 
 const getProductByUserId = (userId, callback) => {
     console.log('get product to review by userId = ',userId)
-    return db.query("SELECT Transaction.Review_ID,Review.Member_ID,Transaction.Product_ID,Review.Detail as Detail,Review.Rating,Transaction.Invoice_ID,Product.Detail as Product_Detail,Product.Name as Product_Name,Product.Price FROM Transaction INNER JOIN Product ON Transaction.Product_ID=Product.ID INNER JOIN Review ON Transaction.Review_ID=Review.ID WHERE Member_ID=?",[userId], callback);
+    return db.query("SELECT Transaction.Review_ID,Review.Member_ID,Transaction.Product_ID,Review.Detail as Detail,Review.Rating as rating,Transaction.Invoice_ID,Product.Detail as Product_Detail,Product.Name as Product_Name,Product.Price FROM Transaction  inner JOIN Member_Invoice ON Transaction.Invoice_ID=Member_Invoice.ID Left outer JOIN Review ON Transaction.Review_ID=Review.ID inner JOIN Product ON Transaction.Product_ID=Product.ID where Member_Invoice.Member_ID=?",[userId], callback);
 }
 const insertReview = ({Rating,Detail,Member_ID},callback) => {
     return db.query("INSERT INTO " + "Review" + " (Rating,Detail,Member_ID) "+"VALUES (?,?,?)", [Rating,Detail,Member_ID], callback);
