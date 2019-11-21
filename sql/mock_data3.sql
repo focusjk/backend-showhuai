@@ -73,8 +73,8 @@ VALUES(3, null, 2, 2);
 -- VALUES(3, 1, 1);
 
 -- Add product
-INSERT INTO `Product`(Name, Price, Amount)
-VALUES('Water 1.5L', 20, 100);
+INSERT INTO `Product`(Name, Price, Amount, Detail)
+VALUES('Water 1.5L', 20, 100, 'Fresh!');
 
 INSERT INTO `Product`(Name, Price, Amount, Detail)
 VALUES('Water 1.5L', 120, 150, '6 bottles per pack');

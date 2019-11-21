@@ -10,9 +10,9 @@ var messageError = {
 };
 
 router.get('/', function (req, res, next) {
-    const  {userId} = req.query
+    const { userId } = req.query
     console.log(userId)
-    reviewModel.getProductByUserId(userId,(err, result) => {
+    reviewModel.getProductByUserId(userId, (err, result) => {
         if (err) {
             res.json(err);
         }
@@ -30,9 +30,9 @@ router.post('/', function (req, res, next) {
         }
         else {
             console.log(result)
-            if (result.insertId!=null) {
+            if (result.insertId != null) {
                 const reviewId = result.insertId
-                reviewModel.updateTransaction(reviewId, req.body,(err,result) => {
+                reviewModel.updateTransaction(reviewId, req.body, (err, result) => {
                     if (err) {
                         res.json(err);
                     }
@@ -40,13 +40,13 @@ router.post('/', function (req, res, next) {
                         console.log(result)
                     }
                 })
-                res.json({ insertSuccess: true, reviewId });
+                res.json({ success: true, reviewId });
             } else {
-                res.json({ insertSuccess: false })
+                res.json({ success: false })
             }
         }
     })
-    
+
 });
 
 module.exports = router;
