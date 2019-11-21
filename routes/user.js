@@ -26,25 +26,27 @@ router.post('/login', function (req, res, next) {
     })
 });
 
-router.get('/profile', function (req, res, next){
-    userModel.getByID(req.body, (err, result)=> {
+router.get('/profile', function (req, res, next) {
+    const { ID } = req.query
+    userModel.getByID(ID, (err, result) => {
         if (err) {
             res.json(err);
         }
         else {
-            console.log(result)
-            res.json(result);
+            const data = result[0]
+            console.log(data)
+            res.json(data);
         }
     })
 });
 
-router.post('/profile/edit', function (req, res, next){
+router.post('/profile/edit', function (req, res, next) {
     userModel.updateProfileByID(req.body.ID, req.body, (err, result) => {
         if (err) {
             res.json(err);
         }
         else {
-            res.json({sucess: true});
+            res.json({ sucess: true });
         }
     });
 });
