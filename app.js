@@ -9,6 +9,7 @@ var user = require('./routes/user');
 var product = require('./routes/product');
 var crud = require('./routes/crud');
 var send = require('./routes/sendinground');
+var review = require('./routes/review');
 
 var app = express();
 
@@ -20,6 +21,8 @@ app.use(cors());
 app.use('/up', up);
 app.use('/user', user);
 app.use('/product', product);
+app.use('/review', review);
+
 app.use('/api/v1/crud', crud);
 app.use('/sendinground', send);
 
