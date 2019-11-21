@@ -11,15 +11,14 @@ var messageError = {
 };
 
 router.post('/login', function (req, res, next) {
-    const { id } = req.body
-    console.log(id)
-
-    userModel.login(id, (err, result) => {
+    const { Username, Password } = req.body
+    userModel.login({ Username, Password }, (err, result) => {
         if (err) {
             res.json(err);
         }
         else {
             if (result.length > 0) {
+                const data = result[0]
                 res.json({ success: true, ...data });
             } else {
                 res.json({ success: false })
@@ -43,15 +42,15 @@ router.get('/profile', function (req, res, next) {
 });
 
 router.post('/profile/edit', function (req, res, next) {
-    const {ID, ...data} = req.body
+    const { ID, ...data } = req.body
     userModel.updateProfileByID(ID, data, (err, result) => {
         if (err) {
             res.json(err);
         }
         else {
-            res.json({ sucess: true });
+            res.json({ success: true });
         }
     });
-}); 
+});
 
 module.exports = router;
