@@ -3,7 +3,7 @@ var connection = mysql.createPool({
   host: 'localhost',
   // port: '3306',
   user: 'root',
-  password: 'ming',
+  password: 'root',
   database: 'showhuai',
   insecureAuth: true
 });
