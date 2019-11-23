@@ -1,8 +1,18 @@
 var db = require('../dbconnection'); //reference of dbconnection.js
 
-const getAllRound = (callback) => {
+const getAllRound = callback => {
     console.log('get all sending round')
-    return db.query('SELECT * FROM Sending_round', callback);
+    return db.query(`SELECT 
+            Sending_round.ID as ID,
+            Member_invoice.ID as Invoice_ID,
+            Depart_time,
+            Arrive_time,
+            Messenger_SSN,
+            License_plate,
+            Member_ID
+            FROM Sending_round
+            inner join Member_invoice on Member_invoice.Sending_round_ID = Sending_round.ID`,
+        callback);
 }
 
 const getCar = (callback) => {
@@ -23,13 +33,14 @@ const getInvoice = (callback) => {
 }
 
 const deleteByID = (srID, callback) => {
-    console.log('delete sending round id: = ', srID)
+    console.log('delete sending round id = ', srID)
     return db.query('DELETE FROM Sending_round WHERE ID=?', srID, callback);
 }
 
-const addRound = (srID, depart, arrive, msg, plate, callback) => {
-    console.log('add new round id: = ', srID)
-    return db.query("INSERT INTO Sending_round VALUES (" + srID + ',"' + depart + '","' + arrive + '","' + msg + '","' + plate + '")', callback);
+const addRound = ({ Depart_time, Arrive_time, Messenger_SSN, License_plate }, callback) => {
+    console.log('add sending round')
+    return db.query(`INSERT INTO Sending_round(Depart_time, Arrive_time, Messenger_SSN, License_plate)
+    VALUES(?,?,?,?);`, [Depart_time, Arrive_time, Messenger_SSN, License_plate], callback);
 }
 
 // "ID": 2,

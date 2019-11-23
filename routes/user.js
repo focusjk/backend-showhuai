@@ -18,8 +18,8 @@ router.post('/login', function (req, res, next) {
         }
         else {
             if (result.length > 0) {
-                const data = result[0]
-                res.json({ success: true, ...data });
+                const { SSN, ...data } = result[0]
+                res.json({ success: true, isAdmin: !!SSN, ...data });
             } else {
                 res.json({ success: false })
             }

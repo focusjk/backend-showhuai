@@ -2,7 +2,17 @@ var db = require('../dbconnection'); //reference of dbconnection.js
 
 const login = ({ Username, Password }, callback) => {
     console.log('login')
-    return db.query(`SELECT * FROM User WHERE Username=? && Password=?`, [Username, Password], callback);
+    return db.query(`SELECT 
+            u.ID as ID,
+            u.Username as Username,
+            u.Email as Email,
+            u.Firstname as Firstname,
+            u.Lastname as Lastname,
+            u.Phone_number as Phone_number,
+            m.SSN as SSN
+        FROM User as u
+        left join Admin as m on u.ID = m.ID 
+        WHERE Username=? && Password=?`, [Username, Password], callback);
 }
 
 const getByID = (ID, callback) => {

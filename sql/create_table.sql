@@ -19,6 +19,7 @@ CREATE TABLE `Admin`
    PRIMARY KEY( ID ),
    FOREIGN KEY( ID )
 	REFERENCES User( ID )
+    ON DELETE CASCADE
 );
 
 CREATE TABLE `Member`
@@ -31,6 +32,7 @@ CREATE TABLE `Member`
    PRIMARY KEY( ID ),
    FOREIGN KEY( ID )
 	REFERENCES User( ID )
+    ON DELETE CASCADE
 );
 
 CREATE TABLE `Promotion`
@@ -104,13 +106,17 @@ CREATE TABLE `Member_invoice`
    INDEX( Member_ID ),
    PRIMARY KEY( ID ),
    FOREIGN KEY( ID )
-    REFERENCES Invoice( ID ),
+    REFERENCES Invoice( ID )
+    ON DELETE CASCADE,
    FOREIGN KEY( Member_ID )
-    REFERENCES `Member`( ID ),
+    REFERENCES `Member`( ID )
+    ON DELETE CASCADE,
    FOREIGN KEY( Promotion_ID )
-	REFERENCES Promotion( ID ),
+	REFERENCES Promotion( ID )
+    ON DELETE SET NULL ,
    FOREIGN KEY( Sending_round_ID )
 	REFERENCES Sending_round( ID )
+    ON DELETE SET NULL 
 );
 
 CREATE TABLE `Supplier_invoice`
@@ -122,7 +128,8 @@ CREATE TABLE `Supplier_invoice`
    INDEX( Admin_ID ),
    PRIMARY KEY( ID ),
    FOREIGN KEY( ID )
-	REFERENCES Invoice( ID ),
+	REFERENCES Invoice( ID )
+    ON DELETE CASCADE,
    FOREIGN KEY( Supplier_ID )
 	REFERENCES Supplier( ID ),
    FOREIGN KEY( Admin_ID )
@@ -165,9 +172,11 @@ CREATE TABLE `Add_to_cart`
    Member_ID INT NOT NULL,
    PRIMARY KEY( Product_ID, Member_ID ),
    FOREIGN KEY( Product_ID )
-	REFERENCES Product( ID ),
+	REFERENCES Product( ID )
+    ON DELETE CASCADE,
    FOREIGN KEY( Member_ID )
 	REFERENCES  `Member`( ID )
+    ON DELETE CASCADE
 );
 
 CREATE TABLE `Is_member_of`
@@ -176,9 +185,11 @@ CREATE TABLE `Is_member_of`
    Type_product_ID INT NOT NULL,
    PRIMARY KEY( Product_ID, Type_product_ID ),
    FOREIGN KEY( Product_ID )
-	REFERENCES Product( ID ),
+	REFERENCES Product( ID )
+    ON DELETE CASCADE,
    FOREIGN KEY( Type_product_ID )
 	REFERENCES  Type_product( ID )
+    ON DELETE CASCADE
 );
 
 CREATE TABLE `Transaction`
@@ -194,4 +205,5 @@ CREATE TABLE `Transaction`
 	REFERENCES Invoice( ID ),
    FOREIGN KEY( Review_ID )
 	REFERENCES  Review( ID )
+    ON DELETE SET NULL
 );  
