@@ -15,7 +15,7 @@
     "cors": "^2.8.4",
     "express": "~4.13.1",
     "loopback-connector-mysql": "^5.2.0",
-    "moment": "^2.19.2",
+    "moment": "^2.29.4",
     "mysql": "^2.14.1",
     "nvm": "0.0.4"
   },
